@@ -90,9 +90,17 @@ const RelativeFlex = styled(FlexBox)`
   position: relative;
 `;
 
+interface CardData {
+  color?: string;
+  value?: string;
+  action?: any;
+  slug?: string;
+  special?: boolean;
+}
+
 const Animation: FC = () => {
   const [showPortal, setShowPortal] = useState(false);
-  const [cardsInDeck, setCardsInDeck] = useState([
+  const [cardsInDeck, setCardsInDeck] = useState<CardData[]>([
     {
       color: "YELLOW",
       value: "FOUR",
@@ -136,7 +144,7 @@ const Animation: FC = () => {
       special: true,
     },
   ]);
-  const [cardsInCenter, setCardsInCenter] = useState([]);
+  const [cardsInCenter, setCardsInCenter] = useState<CardData[]>([]);
 
   const removeFromDeck = (index: number) => {
     let temp = [...cardsInDeck];
@@ -145,7 +153,7 @@ const Animation: FC = () => {
     setCardsInDeck(temp);
   };
 
-  const addToCenter = (index: number, card) => {
+  const addToCenter = (index: number, card: CardData) => {
     removeFromDeck(index);
 
     setCardsInCenter([...cardsInCenter, card]);
@@ -159,9 +167,12 @@ const Animation: FC = () => {
     const randomCardType =
       cardTypeKeys[generateRandomNumber(cardTypeKeys.length)];
 
-    const newCard = {
+    const newCard: CardData = {
       color: randomColor,
       value: randomCardType,
+      action: null,
+      slug: "random-slug",
+      special: false,
     };
 
     setCardsInDeck([...cardsInDeck, newCard]);

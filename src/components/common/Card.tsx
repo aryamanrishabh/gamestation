@@ -17,7 +17,7 @@ interface Props {
   position?: string;
   cardSlug?: string;
   inverted?: boolean;
-  cardData: CardData;
+  cardData?: any;
   onClick?: () => void;
 }
 

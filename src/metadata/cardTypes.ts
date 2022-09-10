@@ -1,4 +1,4 @@
-export const cardTypes = {
+export const cardTypes: any = {
   ZERO: "0",
   ONE: "1",
   TWO: "2",
