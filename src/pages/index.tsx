@@ -1,14 +1,21 @@
 import { useState } from "react";
+import styled from "styled-components";
 import type { NextPage } from "next";
-import styles from "@styles/Home.module.css";
 import Animation from "@components/Animation";
 import Circle from "@components/Circle";
 
+const Wrapper = styled.main`
+  flex: 1;
+  display: flex;
+  box-sizing: border-box;
+`;
+
 const Home: NextPage = () => {
   return (
-    <main className={styles.container}>
-      <Circle />
-    </main>
+    <Wrapper>
+      {/* <Circle /> */}
+      <Animation />
+    </Wrapper>
   );
 };
 

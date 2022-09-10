@@ -27,7 +27,7 @@
       "@common/*": ["./src/components/common/*"],
       "@redux/*": ["./src/redux/*"],
       "@metadata/*": ["./src/metadata/*"],
-      "@HOC/*": ["./src/HOC/*"],
+      "@HOC/*": ["./src/components/HOC/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"]
     }

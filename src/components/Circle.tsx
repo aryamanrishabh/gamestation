@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import styled, { css } from "styled-components";
-import type { NextPage } from "next";
+import useTimer from "@hooks/useTimer";
 
 const loopItems = (itemCount: number, circleSize: number) => {
   const angle: number = 360 / itemCount;
@@ -37,7 +37,7 @@ const onCirlce = (
   border-radius: 50%;
   list-style: none;
 
-  > * {
+  > li {
     display: block;
     position: absolute;
     top: 50%;
@@ -50,23 +50,36 @@ const onCirlce = (
 
     ${loopItems(itemCount, circleSize)}
   }
+
+  /* > div {
+    
+  } */
 `;
 
-const Wrapper = styled.div<{ count: number }>`
-  background-color: wheat;
-
-  ${({ count }) => onCirlce(count, 20, 300)};
+const Wrapper = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Circle: NextPage = () => {
-  const num: number = 6;
-  console.log(new Array(num).fill(1));
+const Container = styled.div<{ count: number }>`
+  ${({ count }) => onCirlce(count, 20, 600)};
+`;
+
+const Circle: FC = () => {
+  const num: number = 8;
+  // const counter = useTimer(50);
 
   return (
-    <Wrapper count={num}>
-      {new Array(num).fill(1).map((a, i) => (
-        <li key={i} />
-      ))}
+    <Wrapper>
+      <Container count={num}>
+        {new Array(num).fill(1).map((a, i) => (
+          <>
+            <li key={i} />
+          </>
+        ))}
+      </Container>
     </Wrapper>
   );
 };
