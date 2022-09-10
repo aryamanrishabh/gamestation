@@ -22,11 +22,11 @@ interface Props {
 }
 
 interface CardData {
-  color: string;
-  value: string;
-  action: string;
-  slug: string;
-  special: boolean;
+  color?: string;
+  value?: string;
+  action?: string;
+  slug?: string;
+  special?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -74,6 +74,23 @@ const Card: FC<Props> = ({
     }
   };
 
+  const RenderDisplayText: FC<CardData> = ({ value = "" }) => {
+    switch (value) {
+      // case "WILD_DRAW_4":
+      //   return <Draw4 inDeck={inDeck} />;
+      // case "WILD":
+      //   return <WildCard />;
+      // case "DRAW_2":
+      //   return <Draw2 />;
+      case "SKIP":
+        return <HiOutlineBan className="rotate" />;
+      case "REVERSE":
+        return <TiArrowRepeat className="skew" />;
+      default:
+        return inverted ? "ONU" : cardTypes[value];
+    }
+  };
+
   return (
     <Wrapper
       className={className}
@@ -88,7 +105,7 @@ const Card: FC<Props> = ({
       >
         {!inverted && (
           <DisplayText top inDeck={inDeck}>
-            {cardTypes[cardData?.value]}
+            <RenderDisplayText value={cardData?.value} />
           </DisplayText>
         )}
 
@@ -98,7 +115,7 @@ const Card: FC<Props> = ({
 
         {!inverted && (
           <DisplayText bottom inDeck={inDeck}>
-            {cardTypes[cardData?.value]}
+            <RenderDisplayText value={cardData?.value} />
           </DisplayText>
         )}
       </Container>
