@@ -5,11 +5,13 @@ import FlexBox from "./FlexBox";
 import { TiArrowRepeat } from "react-icons/ti";
 import { HiOutlineBan } from "react-icons/hi";
 
-import { colors } from "@metadata/colors";
-import { cardTypes } from "@metadata/cardTypes";
 import Draw2 from "./Draw2";
 import Draw4 from "./Draw4";
 import WildCard from "./WildCard";
+
+import { colors } from "@metadata/colors";
+import { cardTypes } from "@metadata/cardTypes";
+import { CardData } from "@declarations/CardData";
 
 interface Props {
   className?: string;
@@ -19,14 +21,6 @@ interface Props {
   inverted?: boolean;
   cardData?: any;
   onClick?: () => void;
-}
-
-interface CardData {
-  color?: string;
-  value?: string;
-  action?: string;
-  slug?: string;
-  special?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -48,7 +42,7 @@ const Card: FC<Props> = ({
       case "WILD":
         return <WildCard />;
       case "DRAW_2":
-        return <Draw2 />;
+        return <Draw2 color={colors[color]} />;
       case "SKIP":
         return (
           <HiOutlineBan
@@ -141,7 +135,7 @@ const Wrapper = styled(FlexBox)<{ inDeck?: boolean; position?: string }>`
   transform: translateY(0);
   transition: transform 500ms linear;
 
-  > * {
+  * {
     box-sizing: border-box;
     cursor: pointer;
   }

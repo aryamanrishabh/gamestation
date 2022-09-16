@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import type { NextPage } from "next";
-import Animation from "@components/Animation";
+import GameInterface from "@components/GameInterface";
 import Circle from "@components/Circle";
 
 const Wrapper = styled.main`
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   return (
     <Wrapper>
       {/* <Circle /> */}
-      <Animation />
+      <GameInterface />
     </Wrapper>
   );
 };

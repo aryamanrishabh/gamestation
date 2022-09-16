@@ -6,6 +6,9 @@ import FlexBox from "@common/FlexBox";
 
 import { colors } from "@metadata/colors";
 import { cardTypes } from "@metadata/cardTypes";
+import { CardData } from "@declarations/CardData";
+import PersonalDeck from "./PersonalDeck";
+import Deck from "./Deck";
 
 const Portal = dynamic(() => import("@HOC/Portal"), { ssr: false });
 
@@ -43,62 +46,28 @@ const Wrapper = styled.div`
     transition: column-gap 200ms linear;
   }
 
-  > * {
+  * {
     box-sizing: border-box;
   }
 `;
 
-const Deck = styled(FlexBox)`
+const CenterDeck = styled(FlexBox)`
   background-color: red;
   grid-column: 2 / 3;
   grid-row: 2;
   padding: 2rem;
 `;
 
-const PersonalDeck = styled(FlexBox)`
+const DeckFlex = styled(FlexBox)`
   background-color: dodgerblue;
   grid-column: 1 / 4;
   grid-row: 3;
   padding: 1rem 2rem;
 `;
 
-const DeckFlex = styled(FlexBox)`
-  width: 80%;
-  background-color: greenyellow;
-
-  column-gap: 0;
-  transition: column-gap 200ms linear;
-
-  > :not(:first-child) {
-    margin-left: -2rem;
-
-    @media only screen and (max-width: 768px) {
-      margin-left: -5rem;
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const CenterFlex = styled(FlexBox)`
-  width: 100%;
-`;
-
-const RelativeFlex = styled(FlexBox)`
-  position: relative;
-`;
-
-interface CardData {
-  color?: string;
-  value?: string;
-  action?: any;
-  slug?: string;
-  special?: boolean;
-}
-
 const Animation: FC = () => {
+  const conditionToBeAnOption = `card.color === card.color of top card in center deck || card.value === card.value of top card in deck || card.special`;
+
   const [showPortal, setShowPortal] = useState(false);
   const [cardsInDeck, setCardsInDeck] = useState<CardData[]>([
     {
@@ -184,34 +153,13 @@ const Animation: FC = () => {
 
   return (
     <Wrapper>
-      <Deck>
-        <CenterFlex align="center" justify="center" colGap="2rem">
-          <RelativeFlex>
-            {cardsInCenter.map((card, i) => (
-              <Card
-                key={`center${i}`}
-                position={cardsInCenter.length - 1 === i ? "" : "absolute"}
-                cardData={card}
-              />
-            ))}
-          </RelativeFlex>
-          <Card inverted onClick={addToDeck} />
-        </CenterFlex>
-      </Deck>
+      <CenterDeck>
+        <Deck cardsInCenter={cardsInCenter} addToDeck={addToDeck} />
+      </CenterDeck>
 
-      <PersonalDeck align="center" justify="center">
-        <DeckFlex className="" justify="center" align="center">
-          {cardsInDeck.map((card, i) => (
-            <Card
-              key={`deck${i}`}
-              className="ease-in-deck"
-              inDeck
-              cardData={card}
-              onClick={() => addToCenter(i, card)}
-            />
-          ))}
-        </DeckFlex>
-      </PersonalDeck>
+      <DeckFlex align="center" justify="center">
+        <PersonalDeck cardsInDeck={cardsInDeck} addToCenter={addToCenter} />
+      </DeckFlex>
     </Wrapper>
   );
 };
