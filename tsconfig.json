@@ -20,7 +20,7 @@
       "@*": ["./src/*"],
       "@public/*": ["./public/*"],
       "@styles/*": ["./src/styles/*"],
-      "@images/*": ["./public/assets/images/*"],
+      "@declarations/*": ["./src/declarations/*"],
       "@constants/*": ["./src/constants/*"],
       "@layout/*": ["./src/layout/*"],
       "@components/*": ["./src/components/*"],
