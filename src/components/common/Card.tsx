@@ -72,8 +72,12 @@ const Card: FC<Props> = ({
     switch (value) {
       // case "WILD_DRAW_4":
       //   return <Draw4 inDeck={inDeck} />;
-      // case "WILD":
-      //   return <WildCard />;
+      case "WILD":
+        return (
+          <WildCardText inDeck={inDeck}>
+            <WildCard />
+          </WildCardText>
+        );
       // case "DRAW_2":
       //   return <Draw2 />;
       case "SKIP":
@@ -211,4 +215,11 @@ const DisplayText = styled.span<{
       bottom: ${inDeck ? "0.5rem" : "0.35rem"};
       right: ${inDeck ? "0.5rem" : "0.35rem"};
     `};
+`;
+
+const WildCardText = styled.div<{ inDeck?: boolean }>`
+  height: ${({ inDeck }) => (inDeck ? "1.75rem" : "1.25rem")};
+  width: ${({ inDeck }) => (inDeck ? "1.5rem" : "1rem")};
+  overflow: hidden;
+  border-radius: 200% 100% 200% 100%;
 `;
