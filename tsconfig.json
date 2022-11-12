@@ -29,7 +29,8 @@
       "@metadata/*": ["./src/metadata/*"],
       "@HOC/*": ["./src/components/HOC/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@urls": ["./src/urls.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
