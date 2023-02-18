@@ -13,6 +13,11 @@ a {
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 .app {
@@ -32,6 +37,38 @@ a {
   box-sizing: border-box;
   padding-bottom: 5rem;
   background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  gap: 2rem;
+  grid-template-columns: repeat(5, 1fr);
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .my-portal {
+    padding: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 2rem;
+  }
+}
+
+.mono {
+  font-family: "Space Mono", monospace;
+}
+
+.text {
+  font-family: "Oxygen", sans-serif;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-disabled {
+  pointer-events: none;
+}
+
+.self-center {
+  align-self: center;
 }
 
 /* @media (prefers-color-scheme: dark) {

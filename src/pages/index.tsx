@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import type { NextPage } from "next";
-import GameInterface from "@components/GameInterface";
+import Home from "@components/Home";
 import Circle from "@components/Circle";
+import GameInterface from "@components/GameInterface";
 
 const Wrapper = styled.main`
   flex: 1;
@@ -10,13 +11,14 @@ const Wrapper = styled.main`
   box-sizing: border-box;
 `;
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <Wrapper>
       {/* <Circle /> */}
-      <GameInterface />
+      {/* <GameInterface /> */}
+      <Home />
     </Wrapper>
   );
 };
 
-export default Home;
+export default HomePage;

@@ -8,7 +8,7 @@ import { CardData } from "@declarations/CardData";
 
 interface Props {
   cardsInCenter: CardData[];
-  addToDeck: () => void;
+  pickACard: () => void;
 }
 
 const Wrapper = styled(FlexBox)`
@@ -19,7 +19,7 @@ const RelativeFlex = styled(FlexBox)`
   position: relative;
 `;
 
-const Deck: FC<Props> = ({ cardsInCenter, addToDeck }) => {
+const Deck: FC<Props> = ({ cardsInCenter, pickACard }) => {
   return (
     <Wrapper align="center" justify="center" colGap="2rem">
       <RelativeFlex>
@@ -28,10 +28,11 @@ const Deck: FC<Props> = ({ cardsInCenter, addToDeck }) => {
             key={`center${i}`}
             position={cardsInCenter.length - 1 === i ? "" : "absolute"}
             cardData={card}
+            className="cursor-disabled"
           />
         ))}
       </RelativeFlex>
-      <Card inverted onClick={addToDeck} />
+      <Card inverted onClick={pickACard} />
     </Wrapper>
   );
 };
