@@ -19,6 +19,7 @@ interface Props {
   position?: string;
   cardSlug?: string;
   inverted?: boolean;
+  isValidOption?: boolean;
   cardData?: any;
   onClick?: () => void;
 }
@@ -28,6 +29,7 @@ const Card: FC<Props> = ({
   inDeck,
   position,
   inverted,
+  isValidOption,
   onClick,
   cardData = {},
 }) => {

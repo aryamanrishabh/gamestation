@@ -9,6 +9,9 @@ import { cardTypes } from "@metadata/cardTypes";
 import { CardData } from "@declarations/CardData";
 import PersonalDeck from "./PersonalDeck";
 import Deck from "./Deck";
+import axiosInstance from "@axiosInstance";
+import { urls } from "@urls";
+import { logger } from "@utils/helpers";
 
 const Portal = dynamic(() => import("@HOC/Portal"), { ssr: false });
 
@@ -51,6 +54,12 @@ const Wrapper = styled.div`
   }
 `;
 
+const ButtonDiv = styled.div`
+  grid-column: 2 / 3;
+  grid-row: 1;
+  padding: 2rem;
+`;
+
 const CenterDeck = styled(FlexBox)`
   background-color: red;
   grid-column: 2 / 3;
@@ -66,7 +75,8 @@ const DeckFlex = styled(FlexBox)`
 `;
 
 const Animation: FC = () => {
-  const conditionToBeAnOption = `card.color === card.color of top card in center deck || card.value === card.value of top card in deck || card.special`;
+  const conditionToBeAnOption = `(card.color === card.color of top card in center deck || card.value === card.value of top card in deck || card.special) 
+  && currentTurn === playerId`;
 
   const [showPortal, setShowPortal] = useState(false);
   const [cardsInDeck, setCardsInDeck] = useState<CardData[]>([
@@ -89,14 +99,14 @@ const Animation: FC = () => {
       value: "SKIP",
       action: "SKIP",
       slug: "YELLOW_SKIP",
-      special: true,
+      special: false,
     },
     {
       color: "GREEN",
       value: "REVERSE",
       action: "REVERSE",
       slug: "GREEN_REVERSE",
-      special: true,
+      special: false,
     },
     {
       color: "BLACK",
@@ -113,7 +123,16 @@ const Animation: FC = () => {
       special: true,
     },
   ]);
-  const [cardsInCenter, setCardsInCenter] = useState<CardData[]>([]);
+  const [cardsInCenter, setCardsInCenter] = useState<CardData[]>([
+    {
+      color: "YELLOW",
+      value: "FOUR",
+      action: null,
+      slug: "YELLOW_4",
+      special: false,
+    },
+  ]);
+  const cardOnTop: CardData = cardsInCenter[cardsInCenter?.length - 1];
 
   const removeFromDeck = (index: number) => {
     let temp = [...cardsInDeck];
@@ -128,7 +147,7 @@ const Animation: FC = () => {
     setCardsInCenter([...cardsInCenter, card]);
   };
 
-  const addToDeck = () => {
+  const pickACard = () => {
     const colorKeys = Object.keys(colors);
     const cardTypeKeys = Object.keys(cardTypes);
 
@@ -151,16 +170,48 @@ const Animation: FC = () => {
 
   const generateRandomNumber = (max: number) => ~~(Math.random() * max);
 
-  return (
-    <Wrapper>
-      <CenterDeck>
-        <Deck cardsInCenter={cardsInCenter} addToDeck={addToDeck} />
-      </CenterDeck>
+  const createGame = async () => {
+    try {
+      const res = await axiosInstance.post(urls.createGame, {
+        gameType: "PRIVATE",
+        playerName: "aryaman",
+        turnTimeout: 30,
+      });
 
-      <DeckFlex align="center" justify="center">
-        <PersonalDeck cardsInDeck={cardsInDeck} addToCenter={addToCenter} />
-      </DeckFlex>
-    </Wrapper>
+      logger(res);
+    } catch (err) {
+      logger(err);
+    }
+  };
+
+  return (
+    <>
+      <Wrapper>
+        <ButtonDiv>
+          <button onClick={createGame} className="cursor-pointer">
+            Click
+          </button>
+        </ButtonDiv>
+
+        <CenterDeck>
+          <Deck cardsInCenter={cardsInCenter} pickACard={pickACard} />
+        </CenterDeck>
+
+        <DeckFlex align="center" justify="center">
+          <PersonalDeck
+            cardsInDeck={cardsInDeck}
+            addToCenter={addToCenter}
+            cardOnTop={cardOnTop}
+          />
+        </DeckFlex>
+      </Wrapper>
+
+      {/* <Portal>
+        {cardsInDeck?.map((card, i) => (
+          <Card inDeck cardData={card} key={`deck${i}`} />
+        ))}
+      </Portal> */}
+    </>
   );
 };
 
