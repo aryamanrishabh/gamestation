@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
+import { useDispatch } from "react-redux";
 import {
   FLUSH,
   PAUSE,
@@ -38,5 +39,9 @@ export const store = configureStore({
       },
     }),
 });
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof rootReducer>;
+
 export const persistor = persistStore(store);
 export const wrapper = createWrapper(() => store, { debug: false });
