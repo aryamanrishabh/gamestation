@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled(FlexBox)`
-  background-color: dodgerblue;
+  background-color: var(--tertiary);
   padding: 1rem;
   border-radius: 1rem;
   width: 25rem;
@@ -44,9 +44,10 @@ const Modal: FC<ModalProps> = ({ children, toggleModal = () => {} }) => {
   useOutsideAlert(wrapperRef, toggleModal);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    document.body.style.setProperty("overflow", "hidden");
+
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.removeProperty("overflow");
     };
   }, []);
 
@@ -60,10 +61,10 @@ const Modal: FC<ModalProps> = ({ children, toggleModal = () => {} }) => {
         <Container ref={wrapperRef}>
           <FlexBox justify="flex-end">
             <RiCloseCircleLine
-              color="white"
               size={24}
-              className="cursor-pointer"
               onClick={toggleModal}
+              color="var(--accent)"
+              className="cursor-pointer"
             />
           </FlexBox>
           <Content column>{children}</Content>

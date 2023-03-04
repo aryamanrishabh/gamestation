@@ -1,25 +1,23 @@
-import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const Button = styled.button`
-  font-family: "Oxygen", sans-serif;
+const Button = styled.button<{ outline?: boolean; disabled?: boolean }>`
   text-transform: uppercase;
   width: fit-content;
-  border: 2.5px solid white;
+  border: 2.5px solid var(--primary);
   padding: 0.75rem 1.75rem;
   box-sizing: border-box;
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.1em;
-  color: white;
+  color: var(--tertiary);
   border-radius: 2rem;
-  background-color: transparent;
+  background-color: var(--primary);
   cursor: pointer;
   transform: scale(1);
   transition: transform 200ms ease-in-out;
 
   :hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: transform 200ms ease-in-out;
 
     @media only screen and (max-width: 768px) {
@@ -27,6 +25,22 @@ const Button = styled.button`
       transition: unset;
     }
   }
+
+  ${({ outline }) =>
+    outline &&
+    css`
+      color: var(--primary);
+      background-color: transparent;
+    `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      transform: unset;
+      transition: unset;
+      pointer-events: none;
+      filter: grayscale(70%);
+    `}
 `;
 
 export default Button;
