@@ -5,6 +5,7 @@ import { urls } from "@urls";
 import { logger } from "@utils/helpers";
 
 interface GameState {
+  id: string | null;
   data: GameData | null;
   error: any | null;
   loading: boolean;
@@ -14,7 +15,12 @@ interface GamePayload {
   playerName: string;
 }
 
-const initialState: GameState = { data: null, error: null, loading: false };
+const initialState: GameState = {
+  id: null,
+  data: null,
+  error: null,
+  loading: false,
+};
 
 export const createGame = createAsyncThunk(
   "game/create",
