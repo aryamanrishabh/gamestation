@@ -1,11 +1,16 @@
 import { FC, useEffect, useRef } from "react";
 import Lottie from "lottie-web";
 import styled from "styled-components";
-import FlexBox from "./common/FlexBox";
 import Image from "next/image";
-import Heading from "./common/Heading";
 import Text from "./common/Text";
+import Button from "./common/Button";
+import FlexBox from "./common/FlexBox";
+import Heading from "./common/Heading";
 import { useAppSelector } from "@hooks/reduxHooks";
+
+interface LoadingScreenProps {
+  startGame: () => void;
+}
 
 const Wrapper = styled(FlexBox)`
   height: 100vh;
@@ -41,7 +46,7 @@ const Grid = styled.div`
 
 let loadingAnimation: any;
 
-const LoadingScreen: FC = () => {
+const LoadingScreen: FC<LoadingScreenProps> = ({ startGame }) => {
   const animationDivRef = useRef<HTMLDivElement>(null);
   const players = useAppSelector((state) => state?.game?.data?.players);
 
@@ -75,8 +80,11 @@ const LoadingScreen: FC = () => {
       />
       <Container column>
         <LottieContainer ref={animationDivRef} />
+        <FlexBox justify="center">
+          <Button onClick={startGame}>START GAME</Button>
+        </FlexBox>
         <FlexBox align="center" column rowGap="2rem">
-          <Heading>Players Joining</Heading>
+          <Heading>Players Joining...</Heading>
           <PlayersText>{players?.length} / 4</PlayersText>
           {players?.length === 1 ? (
             <Text>{players?.[0]?.name}</Text>

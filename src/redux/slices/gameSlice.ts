@@ -50,15 +50,14 @@ const gameSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(createGame.fulfilled, (state, { payload }) => {
-      console.log(payload, "pp");
       if (payload === null) {
         state.data = initialState.data;
         state.loading = false;
       } else {
-        state.data = payload;
+        state.id = payload;
         state.loading = false;
 
-        window.location.href = `/game/${payload.id}`;
+        window.location.href = `/game/${payload}`;
       }
     });
     builder.addCase(createGame.rejected, (state, { error }) => {
