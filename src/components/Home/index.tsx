@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import FlexBox from "@common/FlexBox";
 import Heading from "@components/common/Heading";
-import NameModal from "./NameModal";
+import CreateGameModal from "./CreateGameModal";
 import JoinGameModal from "./JoinGameModal";
 import { createGame } from "@redux/slices/gameSlice";
 import { useAppDispatch } from "@hooks/reduxHooks";
@@ -30,12 +30,12 @@ const Options = styled(Heading)`
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const [showNameModal, setShowNameModal] = useState(false);
+  const [createGameModal, setCreateGameModal] = useState(false);
   const [showJoinGameModal, setShowJoinGameModal] = useState(false);
 
   const [name, setName] = useState("");
 
-  const toggleShowNameModal = () => setShowNameModal(!showNameModal);
+  const toggleCreateGameModal = () => setCreateGameModal(!createGameModal);
 
   const toggleJoinGameModal = () => setShowJoinGameModal(!showJoinGameModal);
 
@@ -43,12 +43,12 @@ const Home: FC = () => {
 
   return (
     <Wrapper>
-      {showNameModal && (
-        <NameModal
+      {createGameModal && (
+        <CreateGameModal
           name={name}
           setName={setName}
           onSubmit={handleCreateGame}
-          toggleModal={toggleShowNameModal}
+          toggleModal={toggleCreateGameModal}
         />
       )}
       {showJoinGameModal && <JoinGameModal toggleModal={toggleJoinGameModal} />}
@@ -67,7 +67,7 @@ const Home: FC = () => {
           <h1 className="mono">Welcome to ONU</h1>
         </motion.div>
         <FlexBox column align="center" rowGap="1.25rem">
-          <Options onClick={toggleShowNameModal}>CREATE GAME</Options>
+          <Options onClick={toggleCreateGameModal}>CREATE GAME</Options>
           <Options onClick={toggleJoinGameModal}>JOIN GAME</Options>
         </FlexBox>
       </Container>
