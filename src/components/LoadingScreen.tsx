@@ -52,13 +52,17 @@ const LoadingScreen: FC = () => {
   }, [animationDivRef]);
 
   const loadAnimation = () => {
-    if (loadingAnimation) loadingAnimation.destroy();
+    try {
+      if (loadingAnimation) loadingAnimation.destroy();
 
-    loadingAnimation = Lottie.loadAnimation({
-      path: "https://assets3.lottiefiles.com/private_files/lf30_klsv8ygt.json",
-      container: animationDivRef.current as Element,
-      loop: true,
-    });
+      loadingAnimation = Lottie.loadAnimation({
+        path: "https://assets3.lottiefiles.com/private_files/lf30_klsv8ygt.json",
+        container: animationDivRef.current as Element,
+        loop: true,
+      });
+    } catch (err) {
+      console.log(err, "error in loading animation");
+    }
   };
 
   return (
