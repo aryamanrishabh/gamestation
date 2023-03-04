@@ -1,12 +1,12 @@
 import { FC } from "react";
+import styled from "styled-components";
 import Modal from "@components/common/Modal";
 import FlexBox from "@components/common/FlexBox";
 import Text from "@components/common/Text";
 import TextInput from "@components/common/TextInput";
-import styled from "styled-components";
 import Button from "@components/common/Button";
 
-interface NameModalProps {
+interface CreateGameModalProps {
   name: string;
   setName: (name: string) => void;
   toggleModal: () => void;
@@ -18,15 +18,10 @@ const Content = styled(FlexBox)`
 `;
 
 const NameText = styled(Text)`
-  color: white;
-  font-size: 1.125rem;
-
-  @media only screen and (max-width: 768px) {
-    font-size: 1rem;
-  }
+  font-size: 1rem;
 `;
 
-const NameModal: FC<NameModalProps> = ({
+const CreateGameModal: FC<CreateGameModalProps> = ({
   name,
   setName,
   toggleModal = () => {},
@@ -35,11 +30,15 @@ const NameModal: FC<NameModalProps> = ({
   return (
     <Modal toggleModal={toggleModal}>
       <Content column rowGap="2rem">
-        <FlexBox column rowGap="0.75rem">
-          <NameText>Please enter name</NameText>
-          <TextInput value={name} onChange={(e) => setName(e.target.value)} />
+        <FlexBox column rowGap="1rem">
+          <NameText>Please enter Name</NameText>
+          <TextInput
+            value={name}
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
+          />
         </FlexBox>
-        <Button onClick={onSubmit} className="self-center">
+        <Button disabled={!name} onClick={onSubmit} className="self-center">
           START
         </Button>
       </Content>
@@ -47,4 +46,4 @@ const NameModal: FC<NameModalProps> = ({
   );
 };
 
-export default NameModal;
+export default CreateGameModal;
