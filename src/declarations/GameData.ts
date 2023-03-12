@@ -2,17 +2,18 @@ import { CardData } from "./CardData";
 import { PlayerData } from "./PlayerData";
 
 export interface GameData {
+  id: string;
+  currentCard: any;
+  gameType: string;
+  flowType: string;
   createdAt: number;
   updatedAt: number;
-  id: string;
-  gameType: string;
-  players: PlayerData[];
-  cardDeck: CardData[];
-  discardDeck: CardData[];
-  flowType: string;
   gameStatus: string;
-  currentTurnPlayerId: string | null;
-  currentCard: any;
   turnTimeout: number;
+  cardDeck: CardData[];
+  players: PlayerData[];
+  discardDeck: CardData[];
+  ownerPlayerId: string | null;
   winnerPlayerId: string | null;
+  currentTurnPlayerId: string | null;
 }
