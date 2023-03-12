@@ -1,6 +1,11 @@
 import { FC } from "react";
+import { GameData } from "@declarations/GameData";
 
-const GameController: FC = () => {
+interface GameControllerProps {
+  gameData: GameData | null;
+}
+
+const GameController: FC<GameControllerProps> = ({ gameData }) => {
   return <div>GameController</div>;
 };
 

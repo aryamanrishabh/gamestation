@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import Modal from "@components/common/Modal";
 import FlexBox from "@components/common/FlexBox";
 import Text from "@components/common/Text";
@@ -27,6 +28,8 @@ const CreateGameModal: FC<CreateGameModalProps> = ({
   toggleModal = () => {},
   onSubmit = () => {},
 }) => {
+  const isGameLoading = useSelector((state: any) => state.game?.loading);
+
   return (
     <Modal toggleModal={toggleModal}>
       <Content column rowGap="2rem">
@@ -38,7 +41,11 @@ const CreateGameModal: FC<CreateGameModalProps> = ({
             onChange={(e) => setName(e.target.value)}
           />
         </FlexBox>
-        <Button disabled={!name} onClick={onSubmit} className="self-center">
+        <Button
+          onClick={onSubmit}
+          className="self-center"
+          disabled={!name || isGameLoading}
+        >
           START
         </Button>
       </Content>
